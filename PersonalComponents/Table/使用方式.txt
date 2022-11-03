@@ -1,0 +1,18 @@
+var data = {
+    HtmlID:'newstable',//添加位置
+    TheadData: ['s','ss'],//表头
+    IsDataSeq:'Seq1',//排序 1.翻页重置2.不重置
+    TheadSeqName:'xu',//序号的表头名
+    TheadBtnName:'cz',//操作的表头名
+    IsEditBtn:true,//是否有编辑按钮PC_ZYL_table_BtnEdit()
+    IsDelBtn:true,//是否有删除按钮PC_ZYL_table_BtnDel()
+    TbodyDataLength:7,//一共多少条数据
+    TbodyPageCount:7,//每页有多少条 值为'All'时 不分页
+    TbodyData: []  //tbody值
+}
+PC_ZYL_table(data);
+
+function PC_ZYL_table_BtnDel(){
+    alert('ss')
+}
+
