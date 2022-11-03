@@ -1,0 +1,8 @@
+入门技术学习计划：微信小程序、flutter、WebRtc、Web3D、WebGl、Three.js、Nodejs、Serverless、Electron、Echarts、TypeScript、svg、d3js、公众号、vue、css/Js动画、webapi、c#、mvc5
+
+功能实现：拖拽功能（可随便放）、下拉多选、table嵌套、js/Css-UI、自适应功能、api管理、文件上传、多图片上传、
+
+流程实践：网站从开发到上线、服务部署
+
+
+知识实践：网站
