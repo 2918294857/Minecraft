@@ -1,38 +1,35 @@
 function PC_ZYL_table(TableData) {
     var HtmlID = TableData.HtmlID
-    var TheadData = typeof(TableData.TheadData)=="undefined" ? []:TableData.TheadData
+    var TheadData = typeof (TableData.TheadData) == "undefined" ? [] : TableData.TheadData
     var TbodyData = TableData.TbodyData
     var TbodyDataKey = TbodyDataKey()
     var IsDataSeq = TableData.IsDataSeq
-    var TheadSeqName= TableData.TheadSeqName
-    var TheadBtnName= TableData.TheadBtnName
+    var TheadSeqName = TableData.TheadSeqName
+    var TheadBtnName = TableData.TheadBtnName
     var IsEditBtn = TableData.IsEditBtn
     var IsDelBtn = TableData.IsDelBtn
     var TbodyDataLength = TableData.TbodyDataLength
     var TbodyPageCount = TableData.TbodyPageCount
     var PagesCount = 1  //当前页数
-
+    var backups = ''//备份
     TableHtml()
     Thead_Th()
     IsTheadData()//判断是否有表头
     IsPaging()//判断是否分页
-    
 
-    function IsTheadData(){
-        if(TheadData.length==0)
-        {
-            $(`#${HtmlID}_Tbody`).css('height','100%')
+    function IsTheadData() {
+        if (TheadData.length == 0) {
+            $(`#${HtmlID}_Tbody`).css('height', '100%')
         }
     }
 
-    function IsPaging(){
-        if (TbodyPageCount != 'All') 
-        {
+    function IsPaging() {
+        if (TbodyPageCount != 'All') {
             PageHtml()
             if (TbodyDataLength < TbodyPageCount) { Tbody_Td(0, TbodyDataLength - 1) }
             else { Tbody_Td(0, TbodyPageCount - 1) }
         }
-        else{
+        else {
             Tbody_Td(0, TbodyDataLength - 1)
         }
     }
@@ -44,15 +41,13 @@ function PC_ZYL_table(TableData) {
 
     function Thead_Th() {
         var TheadHtml = ''
-        if((IsDataSeq=='Seq1'||IsDataSeq=='Seq2') && TheadData.length!=0)
-        {
+        if ((IsDataSeq == 'Seq1' || IsDataSeq == 'Seq2') && TheadData.length != 0) {
             TheadHtml += `<th>${TheadSeqName}</th>`
         }
         for (var i = 0; i < TheadData.length; i++) {
             TheadHtml += `<th>${TheadData[i]}</th>`
         }
-        if((IsEditBtn||IsDelBtn) && TheadData.length!=0)
-        {
+        if ((IsEditBtn || IsDelBtn) && TheadData.length != 0) {
             TheadHtml += `<th>${TheadBtnName}</th>`
         }
         $(`#${HtmlID}_Thead`).html(TheadHtml)
@@ -76,31 +71,28 @@ function PC_ZYL_table(TableData) {
                 TbodyHtml += `<tr id="Tbody_Tr${i}">`
             }
 
-            if(IsDataSeq=='Seq1'||IsDataSeq=='Seq2')
-            {
-                if(IsDataSeq=='Seq1')
-                {
-                      TbodyHtml += '<td>' +(i+1)+ '</td>'
+            if (IsDataSeq == 'Seq1' || IsDataSeq == 'Seq2') {
+                if (IsDataSeq == 'Seq1') {
+                    TbodyHtml += '<td>' + (i + 1) + '</td>'
                 }
-                else{
-                    TbodyHtml += '<td>' +(i-TbodyPageCount*(PagesCount-1)+1)+ '</td>'
+                else {
+                    TbodyHtml += '<td>' + (i - TbodyPageCount * (PagesCount - 1) + 1) + '</td>'
                 }
             }
-          
+
             for (var j = 0; j < TbodyDataKey.length; j++) {
                 TbodyHtml += '<td>' + eval(`TbodyData[i].${TbodyDataKey[j]}`) + '</td>'
             }
-           
+
             if (IsEditBtn || IsDelBtn) {
-                TbodyHtml += '<td>' 
-                if(IsEditBtn)
-                {
-                    TbodyHtml +='<button class="PC_ZYL_Btn PC_ZYL_table_BtnEdit">编辑</button>'
+                TbodyHtml += '<td>'
+                if (IsEditBtn) {
+                    TbodyHtml += '<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnEdit">编辑</button>'
                 }
-                if(IsDelBtn){
-                    TbodyHtml +='<button class="PC_ZYL_Btn PC_ZYL_table_BtnDel">删除</button>'
+                if (IsDelBtn) {
+                    TbodyHtml += '<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnDel">删除</button>'
                 }
-                TbodyHtml +=  '</td>'
+                TbodyHtml += '</td>'
             }
             TbodyHtml += '</tr>'
         }
@@ -108,30 +100,82 @@ function PC_ZYL_table(TableData) {
         $(`#${HtmlID}_Tbody`).html(TbodyHtml)
         TableBtn();//按钮事件
     }
-    
-    function TableBtn(){
-        $('.PC_ZYL_table_BtnEdit').on('click',function(){
-            console.log(this.parentNode.parentNode)
-            PC_ZYL_table_BtnEdit()
+
+    function TableBtn() {
+        $('.PC_ZYL_table_BtnEdit').on('click', function () {
+            if ($(this).text() == '编辑') {
+                if (backups == "") {
+                    backups = $(this.parentNode.parentNode.parentNode).html()//备份 用于取消按钮
+                    $(this).html('保存')
+                    $(this.nextSibling).html('取消')
+                    IsEdit(this.parentNode.parentNode, 'true')
+                    $(this.parentNode.parentNode).css('color', "red")
+                }
+            }
+            else {
+                IsEdit(this.parentNode.parentNode, 'false')
+                $(this).html('编辑')
+                $(this.nextSibling).html('删除')
+                backups = ""
+                $(this.parentNode.parentNode).css('color', "black")
+                var count = this.parentNode.parentNode.id.replace('Tbody_Tr', '')
+                var array = [];//声明一个新的数组
+                $(`#${this.parentNode.parentNode.id}`).children().each(function (index, element) {//遍历每个对象
+                    array.push($(this).html());//往数组中存入值
+                });
+
+                if ((IsDataSeq == 'Seq1' || IsDataSeq == 'Seq2')) {
+                    array.shift()
+                }
+                if (IsEditBtn || IsDelBtn) {
+                    array.pop()
+                }
+                var data = {}
+                for (var i = 0; i < TbodyDataKey.length; i++) {
+                    data[TbodyDataKey[i]] = array[i]
+                }
+                TbodyData[count] = data
+                data['array_seq'] = count
+                PC_ZYL_table_BtnEdit(data)
+                data = {}
+            }
         })
-        $('.PC_ZYL_table_BtnDel').on('click',function(){
-            var count=this.parentNode.parentNode.id.replace('Tbody_Tr','')
-            TbodyData.splice(count,1)
-            TbodyDataLength=TbodyData.length
-            $(`#${HtmlID}_TbodyDataLength`).html(TbodyDataLength)
-            if ( TbodyPageCount!='All') {
-                if (PagesCount * TbodyPageCount <= TbodyDataLength) {
-                    Tbody_Td((PagesCount - 1) * TbodyPageCount, PagesCount * TbodyPageCount - 1)
+        $('.PC_ZYL_table_BtnDel').on('click', function () {
+            if ($(this).text() == '取消') {
+                IsEdit(this.parentNode.parentNode, 'false')
+                $(this.previousSibling).html('编辑')
+                $(this).html('删除')
+                $(this.parentNode.parentNode).css('color', "black")
+                $(this.parentNode.parentNode.parentNode).html(backups)
+                backups = ""
+                TableBtn()
+            }
+            else {
+                var count = this.parentNode.parentNode.id.replace('Tbody_Tr', '')
+                var data = TbodyData[count]
+                data['array_seq'] = count
+                PC_ZYL_table_BtnDel(data)
+                data = {}
+                TbodyData.splice(count, 1)
+                TbodyDataLength = TbodyData.length
+                $(`#${HtmlID}_TbodyDataLength`).html(TbodyDataLength)
+                if (TbodyPageCount != 'All') {
+                    if (PagesCount * TbodyPageCount <= TbodyDataLength) {
+                        Tbody_Td((PagesCount - 1) * TbodyPageCount, PagesCount * TbodyPageCount - 1)
+                    }
+                    else {
+                        Tbody_Td((PagesCount - 1) * TbodyPageCount, TbodyDataLength - 1)
+                    }
                 }
                 else {
-                    Tbody_Td((PagesCount - 1) * TbodyPageCount, TbodyDataLength - 1)
+                    Tbody_Td(0, TbodyDataLength - 1)
                 }
             }
-            else{
-                Tbody_Td(0, TbodyDataLength - 1)
-            }
-            PC_ZYL_table_BtnDel();
         })
+    }
+
+    function IsEdit(id, isbool) {
+        $(id).attr('contenteditable', isbool)
     }
 
     function PageHtml() {
