@@ -4,118 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>时记</title>
+    <link rel="shortcut icon" href="./Img/logo.png">
 </head>
 <body>
-    <div id="table1" style="height: 50vh; width:50%;"></div>
-    <div id="table2" style="height: 50vh; width:50%;"></div>
+    <nav>
+        <div class="logoimg">
+          <img class="logo" src="./Img/logo.png" alt="">
+          <span class="title"><strong> 时记: </strong><span class="content">时间只是用来衡量生命长度的尺度，生命的质量却在于我们如何利用这些时间。</span></span>
+        </div>
+      </nav>
+      <div id="container">
+        
+        <div class="census">
+          <div class="AllCensus">
+            <div>
+              <div class="CensusTitle"><img class="icon" src="./Img/web.png" alt=""><strong>前端</strong></div>
+              <div><strong>4000</strong></div>
+            </div>
+            <div>
+              <div class="CensusTitle"><img class="icon" src="./Img/code.png" alt=""><strong>后端</strong></div>
+              <div><strong>4000</strong></div>
+            </div>
+            <div>
+              <div class="CensusTitle"><img class="icon" src="./Img/mission.png" alt=""><strong>任务</strong></div>
+              <div><strong>4000</strong></div>
+            </div>
+          </div>
+          <div id="echarts" ></div>
+        </div>
+    
+        <div class="news">
+          <div id="newsEcharts"></div>
+          <div class="LearningStatus">
+            <div id="newstable"></div>
+          </div>
+        </div>
+      </div>
+
 </body>
-<script src="./JS/jquery-3.6.1.min.js"></script>
+
+<script src="./JS/census.js"></script>
+
+<link rel="stylesheet" href="./CSS/index.css">
 <script src="./Component/Table/PCTable.js"></script>
 <link rel="stylesheet" href="./Component/Table/PCTable.css">
-<script>
-    var data = {
-    HtmlID:'table1',//添加位置
-    TheadData: ['s','ss'],//表头
-    IsDataSeq:'Seq2',//排序 1.翻页重置 Seq2   2.不重置Seq1  3.其他值则不显示排序
-    TheadSeqName:'序号',//序号的表头名
-    TheadBtnName:'操作',//操作的表头名
-    IsEditBtn:true,//是否有编辑按钮 当为true时 function `${HtmlID}`_table_BtnEdit(data)
-    IsDelBtn:true,//是否有删除按钮 当为true时 function `${HtmlID}`_table_BtnDel(data)
-    TbodyDataLength:7,//一共多少条数据
-    TbodyPageCount:'4',//每页有多少条 值为'All'时 不分页
-    TbodyData: [  //tbody值
-        {
-           
-            content: '编辑组件1',
-            rate: '进行中',
-        },
-        {
-          
-            content: '编辑组件2',
-            rate: '进行中'
-        },
-        {
-            
-            content: '编辑组件3',
-            rate: '进行中'
-        },
-        {
-           
-            content: '编辑组件4',
-            rate: '进行中'
-        },
-        {
-           
-            content: '编辑组件5',
-            rate: '进行中'
-        },
-        {
-            
-            content: '编辑组件6',
-            rate: '进行中'
-        },
-        {
-          
-            content: '编辑表格组件7',
-            rate: '进行中'
-        }
-    ]
-}
-function table1_table_BtnDel(data){}
-function table1_table_BtnEdit(data){}
-PC_ZYL_table(data);
-
-var z = {
-    HtmlID:'table2',//添加位置
-    TheadData: ['s','ss'],//表头
-    IsDataSeq:'Seq2',//排序 1.翻页重置 Seq2   2.不重置Seq1  3.其他值则不显示排序
-    TheadSeqName:'序号',//序号的表头名
-    TheadBtnName:'操作',//操作的表头名
-    IsEditBtn:true,//是否有编辑按钮 当为true时 function `${HtmlID}`_table_BtnEdit(data)
-    IsDelBtn:true,//是否有删除按钮 当为true时 function `${HtmlID}`_table_BtnDel(data)
-    TbodyDataLength:7,//一共多少条数据
-    TbodyPageCount:'4',//每页有多少条 值为'All'时 不分页
-    TbodyData: [  //tbody值
-        {
-           
-            content: '编辑组件1',
-            rate: '进行中',
-        },
-        {
-          
-            content: '编辑组件2',
-            rate: '进行中'
-        },
-        {
-            
-            content: '编辑组件3',
-            rate: '进行中'
-        },
-        {
-           
-            content: '编辑组件4',
-            rate: '进行中'
-        },
-        {
-           
-            content: '编辑组件5',
-            rate: '进行中'
-        },
-        {
-            
-            content: '编辑组件6',
-            rate: '进行中'
-        },
-        {
-          
-            content: '编辑表格组件7',
-            rate: '进行中'
-        }
-    ]
-}
-function table2_table_BtnDel(data){}
-function table2_table_BtnEdit(data){}
-PC_ZYL_table(z);
-</script>
+<script src="./JS/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="./JS/echarts.min.js"></script>
+<script src="./JS/index.js"></script>
 </html>

@@ -14,15 +14,7 @@ function PC_ZYL_table(TableData) {
     var backups = ''//备份
     TableHtml()
     Thead_Th()
-    IsTheadData()//判断是否有表头
     IsPaging()//判断是否分页
-
-    function IsTheadData() {
-        if (TheadData.length == 0) {
-            $(`#${HtmlID}_Tbody`).css('height', '100%')
-        }
-    }
-
     function IsPaging() {
         if (TbodyPageCount != 'All') {
             PageHtml()
@@ -64,45 +56,46 @@ function PC_ZYL_table(TableData) {
 
     function Tbody_Td(start, end) {
         var TbodyHtml = ''
-        for (var i = start; i <= end; i++) {
-            if (i % 2 == 0) {
-                TbodyHtml += `<tr id="${HtmlID}_Tbody_Tr${i}" class="SeparateColor" >`
-            }
-            else {
-                TbodyHtml += `<tr id="${HtmlID}_Tbody_Tr${i}">`
-            }
-
-            if (IsDataSeq == 'Seq1' || IsDataSeq == 'Seq2') {
-                if (IsDataSeq == 'Seq1') {
-                    TbodyHtml += '<td contenteditable="false">' + (i + 1) + '</td>'
+        if (TbodyData.length != 0) {
+            for (var i = start; i <= end; i++) {
+                if (i % 2 == 0) {
+                    TbodyHtml += `<tr id="${HtmlID}_Tbody_Tr${i}" class="SeparateColor" >`
                 }
                 else {
-                    if (TbodyPageCount != 'All') {
-                        TbodyHtml += '<td contenteditable="false">' + (i - TbodyPageCount * (PagesCount - 1) + 1) + '</td>'
-                    }
-                    else {
+                    TbodyHtml += `<tr id="${HtmlID}_Tbody_Tr${i}">`
+                }
+
+                if (IsDataSeq == 'Seq1' || IsDataSeq == 'Seq2') {
+                    if (IsDataSeq == 'Seq1') {
                         TbodyHtml += '<td contenteditable="false">' + (i + 1) + '</td>'
                     }
+                    else {
+                        if (TbodyPageCount != 'All') {
+                            TbodyHtml += '<td contenteditable="false">' + (i - TbodyPageCount * (PagesCount - 1) + 1) + '</td>'
+                        }
+                        else {
+                            TbodyHtml += '<td contenteditable="false">' + (i + 1) + '</td>'
+                        }
+                    }
                 }
-            }
 
-            for (var j = 0; j < TbodyDataKey.length; j++) {
-                TbodyHtml += '<td>' + eval(`TbodyData[i].${TbodyDataKey[j]}`) + '</td>'
-            }
+                for (var j = 0; j < TbodyDataKey.length; j++) {
+                    TbodyHtml += '<td>' + eval(`TbodyData[i].${TbodyDataKey[j]}`) + '</td>'
+                }
 
-            if (IsEditBtn || IsDelBtn) {
-                TbodyHtml += '<td>'
-                if (IsEditBtn) {
-                    TbodyHtml += `<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnEdit ${HtmlID}_table_BtnEdit">编辑</button>`
+                if (IsEditBtn || IsDelBtn) {
+                    TbodyHtml += '<td>'
+                    if (IsEditBtn) {
+                        TbodyHtml += `<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnEdit ${HtmlID}_table_BtnEdit">编辑</button>`
+                    }
+                    if (IsDelBtn) {
+                        TbodyHtml += `<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnDel ${HtmlID}_table_BtnDel">删除</button>`
+                    }
+                    TbodyHtml += '</td>'
                 }
-                if (IsDelBtn) {
-                    TbodyHtml += `<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnDel ${HtmlID}_table_BtnDel">删除</button>`
-                }
-                TbodyHtml += '</td>'
+                TbodyHtml += '</tr>'
             }
-            TbodyHtml += '</tr>'
         }
-
         $(`#${HtmlID}_Tbody`).html(TbodyHtml)
         TableBtn();//按钮事件
     }

@@ -1,13 +1,15 @@
 .PC_ZYL_table {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   border-collapse: collapse;
   background-color: aliceblue;
 }
 
 .PC_ZYL_table tbody {
   display: block;
-  height: 85%;
+  flex: auto;
   overflow-y: auto;
 }
 
@@ -20,7 +22,10 @@
 }
 
 
-.PC_ZYL_table thead th,
+.PC_ZYL_table thead th{
+  width: 50px;
+  height: 40px;
+}
 .PC_ZYL_table tbody td {
   width: 50px;
   height: 30px;
@@ -30,7 +35,7 @@
   width: 100%;
   /* width: calc( 100% - 1em);表头与表格垂直对齐 */
   height: auto;
-  background: rgb(186, 211, 250);
+  background-color: #373c4d;
   color: white;
 }
 
