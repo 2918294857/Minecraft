@@ -1,11 +1,11 @@
-var data = {
+   var data = {
     HtmlID:'table1',//添加位置
     TheadData: ['s','ss'],//表头
     IsDataSeq:'Seq2',//排序 1.翻页重置 Seq2   2.不重置Seq1  3.其他值则不显示排序
     TheadSeqName:'序号',//序号的表头名
     TheadBtnName:'操作',//操作的表头名
-    IsEditBtn:true,//是否有编辑按钮 当为true时 function PC_ZYL_table_BtnEdit(data)
-    IsDelBtn:true,//是否有删除按钮 当为true时 function PC_ZYL_table_BtnDel(data)
+    IsEditBtn:true,//是否有编辑按钮 当为true时 function `${HtmlID}`_table_BtnEdit(data)
+    IsDelBtn:true,//是否有删除按钮 当为true时 function `${HtmlID}`_table_BtnDel(data)
     TbodyDataLength:7,//一共多少条数据
     TbodyPageCount:'4',//每页有多少条 值为'All'时 不分页
     TbodyData: [  //tbody值
@@ -46,6 +46,58 @@ var data = {
         }
     ]
 }
-function PC_ZYL_table_BtnDel(data){console.log(data)}
-function PC_ZYL_table_BtnEdit(data){console.log(data)}
+function table1_table_BtnDel(data){}
+function table1_table_BtnEdit(data){}
 PC_ZYL_table(data);
+
+var z = {
+    HtmlID:'table2',//添加位置
+    TheadData: ['s','ss'],//表头
+    IsDataSeq:'Seq2',//排序 1.翻页重置 Seq2   2.不重置Seq1  3.其他值则不显示排序
+    TheadSeqName:'序号',//序号的表头名
+    TheadBtnName:'操作',//操作的表头名
+    IsEditBtn:true,//是否有编辑按钮 当为true时 function `${HtmlID}`_table_BtnEdit(data)
+    IsDelBtn:true,//是否有删除按钮 当为true时 function `${HtmlID}`_table_BtnDel(data)
+    TbodyDataLength:7,//一共多少条数据
+    TbodyPageCount:'4',//每页有多少条 值为'All'时 不分页
+    TbodyData: [  //tbody值
+        {
+           
+            content: '编辑组件1',
+            rate: '进行中',
+        },
+        {
+          
+            content: '编辑组件2',
+            rate: '进行中'
+        },
+        {
+            
+            content: '编辑组件3',
+            rate: '进行中'
+        },
+        {
+           
+            content: '编辑组件4',
+            rate: '进行中'
+        },
+        {
+           
+            content: '编辑组件5',
+            rate: '进行中'
+        },
+        {
+            
+            content: '编辑组件6',
+            rate: '进行中'
+        },
+        {
+          
+            content: '编辑表格组件7',
+            rate: '进行中'
+        }
+    ]
+}
+function table2_table_BtnDel(data){}
+function table2_table_BtnEdit(data){}
+PC_ZYL_table(z);

@@ -9,7 +9,7 @@ function PC_ZYL_table(TableData) {
     var IsEditBtn = TableData.IsEditBtn
     var IsDelBtn = TableData.IsDelBtn
     var TbodyDataLength = TableData.TbodyDataLength
-    var TbodyPageCount = !isNaN(TableData.TbodyPageCount)?TableData.TbodyPageCount:"All"
+    var TbodyPageCount = !isNaN(TableData.TbodyPageCount) ? TableData.TbodyPageCount : "All"
     var PagesCount = 1  //当前页数
     var backups = ''//备份
     TableHtml()
@@ -35,7 +35,7 @@ function PC_ZYL_table(TableData) {
     }
 
     function TableHtml() {
-        $(`#${HtmlID}`).css({"display":"flex","flex-direction":"column","justify-content":"space-between"})
+        $(`#${HtmlID}`).css({ "display": "flex", "flex-direction": "column", "justify-content": "space-between" })
         var tables = `<table class="PC_ZYL_table" border="0"><thead id="${HtmlID}_Thead"></thead><tbody id="${HtmlID}_Tbody"></tbody></table>`
         $(`#${HtmlID}`).html(tables)
     }
@@ -66,22 +66,22 @@ function PC_ZYL_table(TableData) {
         var TbodyHtml = ''
         for (var i = start; i <= end; i++) {
             if (i % 2 == 0) {
-                TbodyHtml += `<tr id="Tbody_Tr${i}" class="SeparateColor" >`
+                TbodyHtml += `<tr id="${HtmlID}_Tbody_Tr${i}" class="SeparateColor" >`
             }
             else {
-                TbodyHtml += `<tr id="Tbody_Tr${i}">`
+                TbodyHtml += `<tr id="${HtmlID}_Tbody_Tr${i}">`
             }
 
             if (IsDataSeq == 'Seq1' || IsDataSeq == 'Seq2') {
                 if (IsDataSeq == 'Seq1') {
-                    TbodyHtml += '<td>' + (i + 1) + '</td>'
+                    TbodyHtml += '<td contenteditable="false">' + (i + 1) + '</td>'
                 }
                 else {
                     if (TbodyPageCount != 'All') {
-                    TbodyHtml += '<td>' + (i - TbodyPageCount * (PagesCount - 1) + 1) + '</td>'
+                        TbodyHtml += '<td contenteditable="false">' + (i - TbodyPageCount * (PagesCount - 1) + 1) + '</td>'
                     }
-                    else{
-                        TbodyHtml += '<td>' + (i + 1) + '</td>'
+                    else {
+                        TbodyHtml += '<td contenteditable="false">' + (i + 1) + '</td>'
                     }
                 }
             }
@@ -93,10 +93,10 @@ function PC_ZYL_table(TableData) {
             if (IsEditBtn || IsDelBtn) {
                 TbodyHtml += '<td>'
                 if (IsEditBtn) {
-                    TbodyHtml += '<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnEdit">编辑</button>'
+                    TbodyHtml += `<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnEdit ${HtmlID}_table_BtnEdit">编辑</button>`
                 }
                 if (IsDelBtn) {
-                    TbodyHtml += '<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnDel">删除</button>'
+                    TbodyHtml += `<button contenteditable="false" class="PC_ZYL_Btn PC_ZYL_table_BtnDel ${HtmlID}_table_BtnDel">删除</button>`
                 }
                 TbodyHtml += '</td>'
             }
@@ -108,7 +108,7 @@ function PC_ZYL_table(TableData) {
     }
 
     function TableBtn() {
-        $('.PC_ZYL_table_BtnEdit').on('click', function () {
+        $(`.${HtmlID}_table_BtnEdit`).on('click', function () {
             if ($(this).text() == '编辑') {
                 if (backups == "") {
                     backups = $(this.parentNode.parentNode.parentNode).html()//备份 用于取消按钮
@@ -124,7 +124,7 @@ function PC_ZYL_table(TableData) {
                 $(this.nextSibling).html('删除')
                 backups = ""
                 $(this.parentNode.parentNode).css('color', "black")
-                var count = this.parentNode.parentNode.id.replace('Tbody_Tr', '')
+                var count = this.parentNode.parentNode.id.replace(`${HtmlID}_Tbody_Tr`, '')
                 var array = [];//声明一个新的数组
                 $(`#${this.parentNode.parentNode.id}`).children().each(function (index, element) {//遍历每个对象
                     array.push($(this).html());//往数组中存入值
@@ -142,11 +142,12 @@ function PC_ZYL_table(TableData) {
                 }
                 TbodyData[count] = data
                 data['array_seq'] = count
-                PC_ZYL_table_BtnEdit(data)
+                let funName = eval(`${HtmlID}_table_BtnEdit`);
+                funName.call(this, data);
                 data = {}
             }
         })
-        $('.PC_ZYL_table_BtnDel').on('click', function () {
+        $(`.${HtmlID}_table_BtnDel`).on('click', function () {
             if ($(this).text() == '取消') {
                 IsEdit(this.parentNode.parentNode, 'false')
                 $(this.previousSibling).html('编辑')
@@ -157,10 +158,11 @@ function PC_ZYL_table(TableData) {
                 TableBtn()
             }
             else {
-                var count = this.parentNode.parentNode.id.replace('Tbody_Tr', '')
+                var count = this.parentNode.parentNode.id.replace(`${HtmlID}_Tbody_Tr`, '')
                 var data = TbodyData[count]
                 data['array_seq'] = count
-                PC_ZYL_table_BtnDel(data)
+                let funName = eval(`${HtmlID}_table_BtnDel`);
+                funName.call(this, data);
                 data = {}
                 TbodyData.splice(count, 1)
                 TbodyDataLength = TbodyData.length
