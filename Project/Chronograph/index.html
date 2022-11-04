@@ -1,4 +1,19 @@
-var data = {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="table1" style="height: 50vh; width:50%;"></div>
+</body>
+<script src="./JS/jquery-3.6.1.min.js"></script>
+<script src="./Component/Table/PCTable.js"></script>
+<link rel="stylesheet" href="./Component/Table/PCTable.css">
+<script>
+    var data = {
     HtmlID:'table1',//添加位置
     TheadData: ['s','ss'],//表头
     IsDataSeq:'Seq2',//排序 1.翻页重置 Seq2   2.不重置Seq1  3.其他值则不显示排序
@@ -49,3 +64,6 @@ var data = {
 function PC_ZYL_table_BtnDel(data){console.log(data)}
 function PC_ZYL_table_BtnEdit(data){console.log(data)}
 PC_ZYL_table(data);
+
+</script>
+</html>
