@@ -1,14 +1,15 @@
+import * as Btn from "../Table/UseTable.js"
 function PC_ZYL_table(TableData) {
     var HtmlID = TableData.HtmlID
     var TheadData = typeof (TableData.TheadData) == "undefined" ? [] : TableData.TheadData
     var TbodyData = TableData.TbodyData
     var TbodyDataKey = TbodyDataKey()
     var IsDataSeq = TableData.IsDataSeq
-    var TheadSeqName = TableData.TheadSeqName
-    var TheadBtnName = TableData.TheadBtnName
+    var TheadSeqName = typeof (TableData.TheadSeqName) == "undefined" ? '' : TableData.TheadSeqName
+    var TheadBtnName = typeof (TableData.TheadBtnName) == "undefined" ? '' : TableData.TheadBtnName
     var IsEditBtn = TableData.IsEditBtn
     var IsDelBtn = TableData.IsDelBtn
-    var TbodyDataLength = TableData.TbodyDataLength
+    var TbodyDataLength = typeof (TableData.TbodyDataLength) == "undefined" ? TbodyData.length : TableData.TbodyDataLength
     var TbodyPageCount = !isNaN(TableData.TbodyPageCount) ? TableData.TbodyPageCount : "All"
     var PagesCount = 1  //当前页数
     var backups = ''//备份
@@ -135,7 +136,7 @@ function PC_ZYL_table(TableData) {
                 }
                 TbodyData[count] = data
                 data['array_seq'] = count
-                let funName = eval(`${HtmlID}_table_BtnEdit`);
+                let funName = eval(`Btn.${HtmlID}_table_BtnEdit`);
                 funName.call(this, data);
                 data = {}
             }
@@ -154,8 +155,8 @@ function PC_ZYL_table(TableData) {
                 var count = this.parentNode.parentNode.id.replace(`${HtmlID}_Tbody_Tr`, '')
                 var data = TbodyData[count]
                 data['array_seq'] = count
-                let funName = eval(`${HtmlID}_table_BtnDel`);
-                funName.call(this, data);
+                let funName = eval(`Btn.${HtmlID}_table_BtnDel`);
+                funName.call(this, data)
                 data = {}
                 TbodyData.splice(count, 1)
                 TbodyDataLength = TbodyData.length
@@ -217,3 +218,5 @@ function PC_ZYL_table(TableData) {
         })
     }
 }
+
+export { PC_ZYL_table }

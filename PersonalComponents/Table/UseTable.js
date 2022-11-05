@@ -1,5 +1,4 @@
-import { PC_ZYL_table } from "../Table/PCTable.js";//不可删除！！！ 否则将插入内容失败
-
+import { PC_ZYL_table } from "../Table/PCTable.js";
 var data = {
     HtmlID: 'newstable',//添加位置
     TheadData: ['最新技术', '计划学习'],//表头
@@ -13,15 +12,10 @@ var data = {
     TbodyData: [] //数据
 }
 PC_ZYL_table(data)
-//下面内容 当编辑按钮或删除按钮不存在时可不写
-function newstable_table_BtnDel(data) { console.log(data)}//编辑按钮事件
-function newstable_table_BtnEdit(data) { console.log(data)} //删除按钮事件
+function newstable_table_BtnDel(data) { console.log(data) }//名称是  data.HtmlID  +  _table_BtnDel 
+function newstable_table_BtnEdit(data) { console.log(data) }//名称是  data.HtmlID  +  _table_BtnEdit
 export {
     newstable_table_BtnDel,
     newstable_table_BtnEdit
 }
 
-///使用方式
-//引入 Jquery
-//引入 <script type="module" src="./Component/Table/UseTable.js"></script>  注 type="module"  js名带有use 这里面写table的一些操作比如：发送请求等
-//引入 css
