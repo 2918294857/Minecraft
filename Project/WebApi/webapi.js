@@ -3,12 +3,12 @@ const express=require('express')
 const router=require('./Router.js')//路由
 const app=express()
 app.use(cors())
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use('/api',router)
 
 //错误处理
 app.use((err,req,res,next)=>{
-    if (err.name === 'UnauthorizedError') 
-    return res.cc('身份认证失败！')
     res.status(500).send(err.message);
     })
 //启动服务

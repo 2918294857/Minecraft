@@ -29,6 +29,10 @@
 .PC_ZYL_table tbody td {
   width: 50px;
   height: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
 }
 
 .PC_ZYL_table thead {

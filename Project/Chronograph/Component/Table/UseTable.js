@@ -1,10 +1,11 @@
 import { PC_ZYL_table } from "../Table/PCTable.js";
 var thModel = 1
+var category=''
 var data = {
     HtmlID: 'newstable',//添加位置
-    TheadData: ['最新技术', '计划学习'],//表头
-    IsDataSeq: 'Seq2',
-    TheadSeqName: '功能实现',
+    TheadData: ['功能实现','最新技术', '计划学习'],//表头
+    IsDataSeq: 'false',
+    TheadSeqName: '',
     IsEditBtn: true,
     IsDelBtn: true,
     TbodyPageCount: '5',
@@ -15,47 +16,37 @@ $('#newstable table thead th:nth-child(1)').attr('class', 'table_th_color')
 
 function FunctionRealization(text) {
     if (text == '功能实现') {
-        data.TbodyData = [{
-
-            content: '编辑组件1',
-            rate: '进行中',
-        },
-        {
-
-            content: '编辑组件2',
-            rate: '进行中'
-        },
-        {
-
-            content: '编辑组件3',
-            rate: '进行中'
-        },
-        {
-
-            content: '编辑组件4',
-            rate: '进行中'
-        },
-        {
-
-            content: '编辑组件5',
-            rate: '进行中'
-        },
-        {
-
-            content: '编辑组件6',
-            rate: '进行中'
-        },
-        {
-
-            content: '编辑表格组件7',
-            rate: '进行中'
-        }]
+        category='FP'
+        $.ajax(
+            {
+                url: "http://127.0.0.1/api/FPData",
+                async: false,
+                success: function (result) {
+                    data.TbodyData = result.FPData
+                }
+            });
     }
     if (text == '最新技术') {
-        data.TbodyData = []
+        category='LT'
+        $.ajax(
+            {
+                url: "http://127.0.0.1/api/LTData",
+                async: false,
+                success: function (result) {
+                    data.TbodyData = result.LTData
+                }
+            });
     }
     if (text == '计划学习') {
-        data.TbodyData = []
+        category='SL'
+        $.ajax(
+            {
+                url: "http://127.0.0.1/api/SLData",
+                async: false,
+                success: function (result) {
+                    data.TbodyData = result.SLData
+                }
+            });
     }
     PC_ZYL_table(data)
     monitor()
@@ -68,8 +59,28 @@ function monitor() {
         $(`#newstable table thead th:nth-child(${thModel})`).attr('class', 'table_th_color')
     })
 }
-function newstable_table_BtnDel(data) { console.log(data) }
-function newstable_table_BtnEdit(data) { console.log(data) }
+function newstable_table_BtnDel(data) {
+    $.ajax(
+        {
+            url: `http://127.0.0.1/api/Del${category}`,
+            type:'post',
+            async: false,
+            data:data,
+            success: function (result) {
+            }
+        });
+    }
+function newstable_table_BtnEdit(data) { 
+    $.ajax(
+        {
+            url: `http://127.0.0.1/api/Edit${category}`,
+            type:'post',
+            async: false,
+            data:data,
+            success: function (result) {
+            }
+        });
+ }
 export {
     newstable_table_BtnDel,
     newstable_table_BtnEdit

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>时记</title>
     <link rel="shortcut icon" href="./Img/logo.png">
+    <script src="./JS/jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <nav>
@@ -20,15 +21,15 @@
           <div class="AllCensus">
             <div>
               <div class="CensusTitle"><img class="icon" src="./Img/web.png" alt=""><strong>前端</strong></div>
-              <div><strong>4000</strong></div>
+              <div><strong id="Statistics_Reception"></strong></div>
             </div>
             <div>
               <div class="CensusTitle"><img class="icon" src="./Img/code.png" alt=""><strong>后端</strong></div>
-              <div><strong>4000</strong></div>
+              <div><strong id="Statistics_Backstage"></strong></div>
             </div>
             <div>
               <div class="CensusTitle"><img class="icon" src="./Img/mission.png" alt=""><strong>任务</strong></div>
-              <div><strong>4000</strong></div>
+              <div><strong id="Statistics_Task"></strong></div>
             </div>
           </div>
           <div id="echarts" ></div>
@@ -43,10 +44,12 @@
       </div>
 
 </body>
-<script src="./JS/jquery-3.6.1.min.js"></script>
+<script  src="./JS/index.js"></script>
 <script src="./JS/census.js"></script>
 <link rel="stylesheet" href="./CSS/index.css">
+<link rel="stylesheet" href="./Component/Table/PCTable.css">
 <script type="text/javascript" src="./JS/echarts.min.js"></script>
 <script type="module" src="./Component/Table/UseTable.js"></script>
-<link rel="stylesheet" href="./Component/Table/PCTable.css">
+
+
 </html>

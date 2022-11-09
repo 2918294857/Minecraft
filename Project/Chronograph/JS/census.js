@@ -30,7 +30,7 @@ window.onload = function () {
           }
         },
         type: 'category',
-        data: ['Html', 'Css', 'JavaScript', 'TypeScript', 'NodeJs', 'Vue', 'Webapi', 'C#', 'MVC5', 'BootStrap', 'Jquert', '正则表达式']
+        data: xAxis
       }
     ],
     yAxis: [
@@ -42,7 +42,7 @@ window.onload = function () {
       {
         //name: '笔记收录',
         type: 'bar',
-        data: [30, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+        data: series,
         markPoint: {
           data: [
             { type: 'max', name: '最大值' },
@@ -64,6 +64,14 @@ window.onload = function () {
 
   var myChart1 = echarts.init(document.getElementById("newsEcharts"));
   var option1 = {
+    title: {
+      text: '功能完成度',
+      x:'center',
+      y:'center',
+      textStyle: {
+        fontSize: 13
+        }
+    },
     tooltip: {
       trigger: 'item'
     },
@@ -83,7 +91,7 @@ window.onload = function () {
         },
         emphasis: {
           label: {
-            show: true,
+            show: false,
             fontSize: '10',
             fontWeight: 'bold'
           }
@@ -91,11 +99,7 @@ window.onload = function () {
         labelLine: {
           show: true
         },
-        data: [
-          { value: 70, name: '已完成-70' },
-          { value: 30, name: '未完成-30' },
-
-        ]
+        data:EData1
       }
     ]
   };
