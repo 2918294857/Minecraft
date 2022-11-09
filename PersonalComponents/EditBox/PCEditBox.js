@@ -14,6 +14,10 @@ function EditBox(data) {
             <textarea id="${id}_content" class="PC_ZYL_EditBox_content"></textarea>
              `
         $(`#${id}`).html(html)
+        $(`#${id}`).css({
+            "display": "flex",
+            "border": "1px solid skyblue"
+        })
         $('.PC_ZYL_EditBox_content').css('line-height', line_height + 'px')
         $(`#${id}_content`).css('width', $(`#${id}`).width() - 35 + 'px')
     }
