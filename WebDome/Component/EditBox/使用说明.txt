@@ -1,7 +1,0 @@
-import { EditBox } from "./PCEditBox.js" //不可删除
-var data={
-    HtmlID:'EditBox',//添加位置
-    line_height:24  //行间距
- }
-EditBox(data)//调用
-HtmlID_content //是textarea 的id 可根据这个获取输入内容
