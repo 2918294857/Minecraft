@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.knowledge {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    padding: 2vh;
+    box-sizing: border-box;
+    background-color: rgb(236, 236, 236);
+}
+
+nav {
+    background-color: rgb(255, 255, 255);
+    width: 20%;
+    margin-right: 10px;
+    color: darkblue;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 3px 3px 3px rgb(65, 65, 65);
+    border: 1px solid white;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+nav>div {
+    height: 40px;
+    display: flex;
+    padding: 0 15px;
+    cursor: pointer;
+    align-items: center;
+    box-sizing: border-box; 
+    border-bottom: 2px solid white;
+    background-color: rgb(195, 221, 239);
+}
+
+nav>div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    cursor: default;
+    box-sizing: border-box;
+}
+
+nav>div:hover {
+    color: rgb(220, 114, 114);
+}
+
+nav>div:first-child:hover {
+    color: darkblue !important;
+}
+
+.icon {
+    width: 15px;
+    margin-right: 10px;
+}
+
+.icon1 {
+    width: 25px;
+    margin-right: 10px;
+}
+
+.nav_Color{
+    background-color: rgb(236, 176, 176) !important;
+    color: white !important;
+}
+.table{
+    width: 80%;
+    height: 100%;
+}

@@ -1,41 +1,46 @@
-.PC_ZYL_table {
-  height: 100%;
+.Cp_table {
+  height: calc(100% - 35px);
   width: 100%;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
-  border-collapse: collapse;
   background-color: aliceblue;
 }
 
-.PC_ZYL_table tbody {
-  display: block;
+.Cp_table tbody {
   flex: auto;
-  overflow-y: auto;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
-.PC_ZYL_table thead,
-.PC_ZYL_table tbody tr {
-  display: table;
+.Cp_table thead,
+.Cp_table tbody tr {
+  display: flex;
   width: 100%;
-  table-layout: fixed;
+  height: 40px;
   text-align: center;
 }
 
 
-.PC_ZYL_table thead th{
-  width: 50px;
+.Cp_table thead th {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 40px;
 }
-.PC_ZYL_table tbody td {
-  width: 50px;
-  height: 30px;
+
+.Cp_table tbody td {
+  height: 40px;
+  line-height: 40px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
+  box-sizing: border-box;
 }
 
-.PC_ZYL_table thead {
+
+.Cp_table thead {
   width: 100%;
   /* width: calc( 100% - 1em);表头与表格垂直对齐 */
   height: auto;
@@ -43,8 +48,9 @@
   color: white;
 }
 
-.PC_ZYL_paging {
+.Cp_paging {
   height: 35px;
+  min-height: 35px;
   background-color: aliceblue;
   color: black;
   display: flex;
@@ -56,28 +62,35 @@
   box-sizing: border-box;
   user-select: none;
 }
-.IsPaging{
-  color: rgb(153, 153, 153); cursor: pointer;
-}
-.SeparateColor{
-  background:white;
+
+.IsPaging {
+  color: rgb(153, 153, 153);
+  cursor: pointer;
 }
 
-.PC_ZYL_Btn{
+.SeparateColor {
+  background: white;
+}
+
+.Cp_Btn {
   color: white;
   border: none;
-  height: 25px;
-  margin: 0 2px;
+  height: 70%;
+  width: 40px;
+  margin: 0px 2px;
   font-size: 12px;
   border-radius: 5px;
   cursor: pointer;
 }
-.PC_ZYL_table_BtnEdit{
+
+.Cp_table_BtnEdit {
   background-color: rgb(224, 65, 65);
 }
-.PC_ZYL_table_BtnDel{
+
+.Cp_table_BtnDel {
   background-color: rgb(123, 179, 235);
 }
-.PC_ZYL_PagesCount{
-  margin:0 10px;
+
+.Cp_PagesCount {
+  margin: 0 10px;
 }

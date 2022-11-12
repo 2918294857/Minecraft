@@ -28,12 +28,13 @@ function echarts1_data() {
     EData.forEach(element => {
         xAxis.push(element.indexestwo)
         series.push(element.count)
+        sessionStorage.setItem('KIndexs',xAxis)
     });
 }
 function echarts2_data() {
     $.ajax(
         {
-            url: "http://127.0.0.1/api/SLCount",
+            url: "http://127.0.0.1/api/FPCount",
             async: false,
             success: function (result) {
                 EData1 = result.data
@@ -144,19 +145,22 @@ window.onload = function () {
     };
     myChart.setOption(option, true);
     myChart.on('click', function (param) {
-        alert(param.name);  //X轴的值
+        location.replace("./Pages/knowledge.html")
+        sessionStorage.setItem('Parameter',param.name)
     });
 }
 //#endregion
 //#region Table
+var category = ''
 Table()
 function Table() {
     var thModel = 1
-    var category = ''
     var data = {
         HtmlID: 'newstable',//添加位置
         TheadData: ['功能实现', '最新技术', '计划学习'],//表头
         IsDataSeq: 'false',
+       // ThWidth:['20%','25%','25%'],
+        BtnThWidth:'30%',
         TheadSeqName: '',
         IsEditBtn: true,
         IsDelBtn: true,
@@ -222,6 +226,8 @@ function newstable_table_BtnDel(data) {
             success: function (result) {
             }
         });
+        echarts2_data()
+        onload()
 }
 function newstable_table_BtnEdit(data) {
     $.ajax(
@@ -233,6 +239,8 @@ function newstable_table_BtnEdit(data) {
             success: function (result) {
             }
         });
+    echarts2_data()
+    onload()
 }
 //#endregion
 
