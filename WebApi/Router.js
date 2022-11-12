@@ -21,8 +21,8 @@ router.get('/index', async (req, res) => {
     res.send(AllData);
 })
 
-router.get('/SLCount', async (req, res) => {
-    let Sql = `SELECT state as name , count(*) as value from  SkillLearning GROUP BY state`;
+router.get('/FPCount', async (req, res) => {
+    let Sql = `SELECT state as name , count(*) as value from  FunctionProduction GROUP BY state`;
     let Data = await db(Sql)
     let AllData = {}
     AllData['data'] = Data.recordset
@@ -62,12 +62,37 @@ router.post('/EditSL', async (req, res) => {
     res.send(SLData);
 })
 
+router.get('/GetK', async (req, res) => {
+    let body = req.query
+    let KSql = `select id, title,content from Knowledge where indexestwo='${body.indexs}'`;
+    let KData = await db(KSql)
+    let AllData = {}
+    AllData['Kdata']=KData.recordset
+    res.send(AllData);
+})
+
+router.post('/EditK', async (req, res) => {
+    let body = req.body
+    let KSql = `update Knowledge  set title='${body.title}' ,content='${body.content}' where id =${body.id}`;
+    let KData = await db(KSql)
+    res.send(KData);
+})
+
+router.post('/DelK', async (req, res) => {
+    let body = req.body
+    let KSql = `delete from Knowledge  where id =${body.id}`;
+    let KData = await db(KSql)
+    res.send(KData);
+})
+
+
 router.post('/EditLT', async (req, res) => {
     let body = req.body
     let LTSql = `update LatestTechnology  set technicalname='${body.technicalname}' ,state='${body.state}' where id =${body.id}`;
     let LTData = await db(LTSql)
     res.send(LTData);
 })
+
 
 router.post('/EditFP', async (req, res) => {
     let body = req.body
