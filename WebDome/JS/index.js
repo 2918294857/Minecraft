@@ -1,6 +1,11 @@
-
+var EData = []
+let xAxis = []
+let series = []
+var EData1 = []
 //#region init()
 init()
+echarts1_data()
+echarts2_data()
 function init() {
     $.ajax(
         {
@@ -18,18 +23,67 @@ function init() {
         });
 }
 //#endregion
-//#region echarts1-Histogram
-echarts1()
-var EData = []
-let xAxis = []
-let series = []
-function echarts1() {
+//#region echarts
+function echarts1_data() {
     EData.forEach(element => {
         xAxis.push(element.indexestwo)
         series.push(element.count)
     });
 }
+function echarts2_data() {
+    $.ajax(
+        {
+            url: "http://127.0.0.1/api/SLCount",
+            async: false,
+            success: function (result) {
+                EData1 = result.data
+            }
+        });
+}
 window.onload = function () {
+    var myChart1 = echarts.init(document.getElementById("newsEcharts"));
+    var option1 = {
+        title: {
+            text: '功能完成度',
+            x: 'center',
+            y: 'center',
+            textStyle: {
+                fontSize: 13
+            }
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            top: '5%',
+            left: 'center'
+        },
+        series: [
+            {
+                name: '',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: false,
+                        fontSize: '10',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: true
+                },
+                data: EData1
+            }
+        ]
+    };
+    myChart1.setOption(option1);
+
     var myChart = echarts.init(document.getElementById('echarts'));
     var option = {
         title: {
@@ -92,64 +146,6 @@ window.onload = function () {
     myChart.on('click', function (param) {
         alert(param.name);  //X轴的值
     });
-}
-//#endregion
-//#region echarts1-ring
-echarts2()
-var EData1 = []
-function echarts2() {
-    $.ajax(
-        {
-            url: "http://127.0.0.1/api/SLCount",
-            async: false,
-            success: function (result) {
-                EData1 = result.data
-            }
-        });
-}
-window.onload = function () {
-    var myChart1 = echarts.init(document.getElementById("newsEcharts"));
-    var option1 = {
-        title: {
-            text: '功能完成度',
-            x: 'center',
-            y: 'center',
-            textStyle: {
-                fontSize: 13
-            }
-        },
-        tooltip: {
-            trigger: 'item'
-        },
-        legend: {
-            top: '5%',
-            left: 'center'
-        },
-        series: [
-            {
-                name: '',
-                type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    label: {
-                        show: false,
-                        fontSize: '10',
-                        fontWeight: 'bold'
-                    }
-                },
-                labelLine: {
-                    show: true
-                },
-                data: EData1
-            }
-        ]
-    };
-    myChart1.setOption(option1);
 }
 //#endregion
 //#region Table
